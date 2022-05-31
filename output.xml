@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.10.2 on win32)" generated="20220531 16:07:48.394" rpa="false" schemaversion="3">
+<suite id="s1" name="TC1 POST Login" source="C:\Users\Shriya\PycharmProjects\MM\Tests\TC1_POST_Login.robot">
+<test id="s1-t1" name="TC1_Login_user" line="14">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:48.692" level="INFO">Creating Session using : alias=mysession, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:48.692" endtime="20220531 16:07:48.692"/>
+</kw>
+<kw name="Read Post Data Login" library="json_apis_data">
+<var>${body}</var>
+<msg timestamp="20220531 16:07:48.694" level="INFO">${body} = {'email': 'su@metalmark.xyz', 'password': 'e6beff9b586c0dc299301eddf308c23698daa433076c4e48b19fc80a4d4ed9db'}</msg>
+<status status="PASS" starttime="20220531 16:07:48.693" endtime="20220531 16:07:48.694"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${header}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220531 16:07:48.694" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20220531 16:07:48.694" endtime="20220531 16:07:48.694"/>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>/login</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<msg timestamp="20220531 16:07:48.694" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20220531 16:07:49.340" level="INFO">POST Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/login 
+ path_url=/api/v1/login 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body={"email": "su@metalmark.xyz", "password": "e6beff9b586c0dc299301eddf308c23698daa433076c4e48b19fc80a4d4ed9db"} 
+ </msg>
+<msg timestamp="20220531 16:07:49.340" level="INFO">POST Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/login 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 31 May 2022 10:37:49 GMT', 'Content-Type': 'application/json', 'Content-Length': '842', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body={
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWwiOiJzdUBtZXRhbG1hcmsueHl6IiwidXNlcl9yb2xlX2lkIjoxLCJvcmdfaWQiOjExMTExMTExMTEsInN0YXR1cyI6IkFDVElWQVRFRCJ9LCJuYmYiOjE2NTM5OTM0NjksImV4cCI6MTY1Mzk5NTI2OX0.jjOPvzL0u_mYANGl7KZMZgLYBzHvRYH2pC_m2mjllbo", 
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNzE3YjE5ZGUtMTg5NC00YjFjLWIzOTYtNDdjMWE4MzcyM2U5IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOnsiaWQiOjExMTExMTExMTEsImVtYWlsIjoic3VAbWV0YWxtYXJrLnh5eiIsInVzZXJfcm9sZV9pZCI6MSwib3JnX2lkIjoxMTExMTExMTExLCJzdGF0dXMiOiJBQ1RJVkFURUQifSwibmJmIjoxNjUzOTkzNDY5LCJleHAiOjE2NTY1ODU0Njl9.cupf9f257ye-9jlLXG3php9jxOXsDpa7Z6_rznbEiJ0"
+}
+ 
+ </msg>
+<msg timestamp="20220531 16:07:49.340" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:48.694" endtime="20220531 16:07:49.340"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>${post_status_code}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220531 16:07:49.343" endtime="20220531 16:07:49.346"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${access_token}</var>
+<arg>${response.json()}</arg>
+<arg>access_token</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220531 16:07:49.386" level="INFO">${access_token} = ['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1ha...</msg>
+<status status="PASS" starttime="20220531 16:07:49.348" endtime="20220531 16:07:49.386"/>
+</kw>
+<kw name="Get From List" library="Collections">
+<var>${access_value}</var>
+<arg>${access_token}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20220531 16:07:49.397" level="INFO">${access_value} = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWw...</msg>
+<status status="PASS" starttime="20220531 16:07:49.397" endtime="20220531 16:07:49.397"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${access_value_bearer}</var>
+<arg>Bearer</arg>
+<arg>${access_value}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20220531 16:07:49.398" level="INFO">${access_value_bearer} = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwi...</msg>
+<status status="PASS" starttime="20220531 16:07:49.398" endtime="20220531 16:07:49.398"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${access_value_bearer}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20220531 16:07:49.399" level="INFO">${access_value_bearer} = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwi...</msg>
+<status status="PASS" starttime="20220531 16:07:49.399" endtime="20220531 16:07:49.399"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Result=${access_value_bearer}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:49.400" endtime="20220531 16:07:49.400"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:48.691" endtime="20220531 16:07:49.401"/>
+</test>
+<test id="s1-t2" name="TC2_Get_dashboard" line="33">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:49.402" level="INFO">Creating Session using : alias=mysession, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:49.402" endtime="20220531 16:07:49.402"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers1}</var>
+<arg>Authorization=${access_value_bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220531 16:07:49.403" level="INFO">${headers1} = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZ...</msg>
+<status status="PASS" starttime="20220531 16:07:49.403" endtime="20220531 16:07:49.403"/>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<var>${response1}</var>
+<arg>mysession</arg>
+<arg>/dashboard</arg>
+<arg>headers=${headers1}</arg>
+<doc>*DEPRECATED* Please use `GET On Session` instead.</doc>
+<msg timestamp="20220531 16:07:49.404" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg timestamp="20220531 16:07:50.033" level="INFO">GET Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/dashboard 
+ path_url=/api/v1/dashboard 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWwiOiJzdUBtZXRhbG1hcmsueHl6IiwidXNlcl9yb2xlX2lkIjoxLCJvcmdfaWQiOjExMTExMTExMTEsInN0YXR1cyI6IkFDVElWQVRFRCJ9LCJuYmYiOjE2NTM5OTM0NjksImV4cCI6MTY1Mzk5NTI2OX0.jjOPvzL0u_mYANGl7KZMZgLYBzHvRYH2pC_m2mjllbo'} 
+ body=None 
+ </msg>
+<msg timestamp="20220531 16:07:50.033" level="INFO">GET Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/dashboard 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 31 May 2022 10:37:50 GMT', 'Content-Type': 'application/json', 'Content-Length': '98', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body={
+  "Hazardous": 16, 
+  "Moderate": 2, 
+  "offline": 16, 
+  "online": 2, 
+  "total_devices": 18
+}
+ 
+ </msg>
+<msg timestamp="20220531 16:07:50.033" level="INFO">${response1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:49.404" endtime="20220531 16:07:50.033"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response1.status_code}</arg>
+<arg>${get_status_code}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220531 16:07:50.037" endtime="20220531 16:07:50.038"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:50.040" endtime="20220531 16:07:50.043"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:49.402" endtime="20220531 16:07:50.044"/>
+</test>
+<test id="s1-t3" name="TC3_Refresh" line="43">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession1</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:50.050" level="INFO">Creating Session using : alias=mysession1, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:50.049" endtime="20220531 16:07:50.050"/>
+</kw>
+<kw name="Options Request" library="RequestsLibrary">
+<var>${response2}</var>
+<arg>mysession1</arg>
+<arg>/refresh</arg>
+<doc>*DEPRECATED* Please use `OPTIONS On Session` instead.</doc>
+<msg timestamp="20220531 16:07:50.051" level="WARN">Keyword 'RequestsLibrary.Options Request' is deprecated. Please use `OPTIONS On Session` instead.</msg>
+<msg timestamp="20220531 16:07:50.583" level="INFO">OPTIONS Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/refresh 
+ path_url=/api/v1/refresh 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220531 16:07:50.583" level="INFO">OPTIONS Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/refresh 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 31 May 2022 10:37:50 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': '0', 'Connection': 'keep-alive', 'Allow': 'OPTIONS, POST', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body=None 
+ </msg>
+<msg timestamp="20220531 16:07:50.583" level="INFO">${response2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:50.051" endtime="20220531 16:07:50.583"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response2.status_code}</arg>
+<arg>${get_status_code}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220531 16:07:50.584" endtime="20220531 16:07:50.585"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:50.047" endtime="20220531 16:07:50.586"/>
+</test>
+<test id="s1-t4" name="TC4_Get_single_device" line="51">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:50.588" level="INFO">Creating Session using : alias=mysession, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:50.588" endtime="20220531 16:07:50.588"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${access_value_bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220531 16:07:50.589" level="INFO">${headers} = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZ...</msg>
+<status status="PASS" starttime="20220531 16:07:50.589" endtime="20220531 16:07:50.589"/>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<var>${response1}</var>
+<arg>mysession</arg>
+<arg>/device/airpurifier_1648716405257</arg>
+<arg>${headers}</arg>
+<doc>*DEPRECATED* Please use `GET On Session` instead.</doc>
+<msg timestamp="20220531 16:07:50.590" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg timestamp="20220531 16:07:51.231" level="INFO">GET Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/device/airpurifier_1648716405257 
+ path_url=/api/v1/device/airpurifier_1648716405257 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWwiOiJzdUBtZXRhbG1hcmsueHl6IiwidXNlcl9yb2xlX2lkIjoxLCJvcmdfaWQiOjExMTExMTExMTEsInN0YXR1cyI6IkFDVElWQVRFRCJ9LCJuYmYiOjE2NTM5OTM0NjksImV4cCI6MTY1Mzk5NTI2OX0.jjOPvzL0u_mYANGl7KZMZgLYBzHvRYH2pC_m2mjllbo'} 
+ body=None 
+ </msg>
+<msg timestamp="20220531 16:07:51.231" level="INFO">GET Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/device/airpurifier_1648716405257 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 31 May 2022 10:37:51 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': '857', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body={"regen_diff_pressure_1A": 302, "filter_thermocouple_1B": 764, "regen_diff_pressure_1B": -400, "filter_thermocouple_1A": 386, "filter_thermocouple_2B": 451, "filter_thermocouple_3B": 1085, "filter_thermocouple_2A": 405, "filter_thermocouple_3A": 1257, "timestamp": 1648728042918, "filter_diff_pressure_1B": 435, "filter_diff_pressure_1A": -213, "serial_number": "airpurifier_1648716405257", "output": {"humidity": 43, "temp": 32, "VOC": 491, "Formaldehyde": 0, "PM2.5": 327}, "input": {"humidity": 48, "temp": 50, "VOC": 256, "Formaldehyde": 5, "PM2.5": 130}, "aqi": {"output_aqi": {"pollutant_value": 327, "value": 351.78510028653295, "aqi_category": "Hazardous", "pollutant": "PM2.5"}, "input_aqi": {"pollutant_value": 5, "value": 500, "aqi_category": "Hazardous", "pollutant": "Formaldehyde"}}, "regen_thermocouple_1A": 957, "regen_thermocouple_1B": 163} 
+ </msg>
+<msg timestamp="20220531 16:07:51.231" level="INFO">${response1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:50.590" endtime="20220531 16:07:51.231"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:51.234" endtime="20220531 16:07:51.238"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:51.239" endtime="20220531 16:07:51.240"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${Result}</var>
+<arg>${response1.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220531 16:07:51.246" level="INFO">${Result} = {"regen_diff_pressure_1A": 302, "filter_thermocouple_1B": 764, "regen_diff_pressure_1B": -400, "filter_thermocouple_1A": 386, "filter_thermocouple_2B": 451, "filter_thermocouple_3B": 1085, "filter_the...</msg>
+<status status="PASS" starttime="20220531 16:07:51.245" endtime="20220531 16:07:51.246"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${Result}</arg>
+<arg>input_aqi</arg>
+<arg>output_aqi</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20220531 16:07:51.248" endtime="20220531 16:07:51.249"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response1.status_code}</arg>
+<arg>${get_status_code}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220531 16:07:51.250" endtime="20220531 16:07:51.251"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:50.587" endtime="20220531 16:07:51.252"/>
+</test>
+<test id="s1-t5" name="TC5_Add customer" line="64">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:51.256" level="INFO">Creating Session using : alias=mysession, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:51.256" endtime="20220531 16:07:51.257"/>
+</kw>
+<kw name="Read Post Data Device" library="json_apis_data">
+<var>${body}</var>
+<msg timestamp="20220531 16:07:51.267" level="INFO">${body} = {'address': 'California', 'city': 'US', 'contact_email': 'shriya.patil@indexnine.com', 'contact_first_name': 'shriya', 'contact_landline': '1234556', 'contact_last_name': 'Patil', 'contact_phone': '34...</msg>
+<status status="PASS" starttime="20220531 16:07:51.257" endtime="20220531 16:07:51.267"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${access_value_bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220531 16:07:51.268" level="INFO">${headers} = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZ...</msg>
+<status status="PASS" starttime="20220531 16:07:51.267" endtime="20220531 16:07:51.268"/>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<var>${response1}</var>
+<arg>mysession</arg>
+<arg>/organization</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<msg timestamp="20220531 16:07:51.269" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20220531 16:07:51.812" level="INFO">POST Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/organization 
+ path_url=/api/v1/organization 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWwiOiJzdUBtZXRhbG1hcmsueHl6IiwidXNlcl9yb2xlX2lkIjoxLCJvcmdfaWQiOjExMTExMTExMTEsInN0YXR1cyI6IkFDVElWQVRFRCJ9LCJuYmYiOjE2NTM5OTM0NjksImV4cCI6MTY1Mzk5NTI2OX0.jjOPvzL0u_mYANGl7KZMZgLYBzHvRYH2pC_m2mjllbo', 'Content-Length': '235'} 
+ body=address=California&amp;city=US&amp;contact_email=shriya.patil%40indexnine.com&amp;contact_first_name=shriya&amp;contact_landline=1234556&amp;contact_last_name=Patil&amp;contact_phone=3465896345&amp;country=United+States&amp;org_name=MTL+Lounge&amp;state=US&amp;zipcode=452163 
+ </msg>
+<msg timestamp="20220531 16:07:51.812" level="INFO">POST Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/organization 
+ status=400, reason=BAD REQUEST 
+ headers={'Date': 'Tue, 31 May 2022 10:37:51 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': '47', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body=Bad Request{'_schema': ['Invalid input type.']} 
+ </msg>
+<msg timestamp="20220531 16:07:51.813" level="INFO">${response1} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:51.269" endtime="20220531 16:07:51.813"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:51.814" endtime="20220531 16:07:51.815"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:51.255" endtime="20220531 16:07:51.816"/>
+</test>
+<test id="s1-t6" name="TC6_Get Customer" line="77">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${baseurl}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220531 16:07:51.817" level="INFO">Creating Session using : alias=mysession, url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220531 16:07:51.817" endtime="20220531 16:07:51.818"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers1}</var>
+<arg>Authorization=${access_value_bearer}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220531 16:07:51.818" level="INFO">${headers1} = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZ...</msg>
+<status status="PASS" starttime="20220531 16:07:51.818" endtime="20220531 16:07:51.818"/>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<var>${response1}</var>
+<arg>mysession</arg>
+<arg>/organization</arg>
+<arg>headers=${headers1}</arg>
+<doc>*DEPRECATED* Please use `GET On Session` instead.</doc>
+<msg timestamp="20220531 16:07:51.819" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg timestamp="20220531 16:07:52.418" level="INFO">GET Request : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/organization 
+ path_url=/api/v1/organization 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1Mzk5MzQ2OSwianRpIjoiNGE4NDY3ZWMtOTM4ZS00MTVjLWEzOGItYTk0MTEyNTVmZDEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MTExMTExMTExMSwiZW1haWwiOiJzdUBtZXRhbG1hcmsueHl6IiwidXNlcl9yb2xlX2lkIjoxLCJvcmdfaWQiOjExMTExMTExMTEsInN0YXR1cyI6IkFDVElWQVRFRCJ9LCJuYmYiOjE2NTM5OTM0NjksImV4cCI6MTY1Mzk5NTI2OX0.jjOPvzL0u_mYANGl7KZMZgLYBzHvRYH2pC_m2mjllbo'} 
+ body=None 
+ </msg>
+<msg timestamp="20220531 16:07:52.418" level="INFO">GET Response : url=http://metalmark-lb-tf-1941892352.us-west-2.elb.amazonaws.com/api/v1/organization 
+ status=200, reason=OK 
+ headers={'Date': 'Tue, 31 May 2022 10:37:52 GMT', 'Content-Type': 'application/json', 'Content-Length': '731', 'Connection': 'keep-alive', 'Access-Control-Allow-Origin': '*', 'Server': 'Werkzeug/0.16.1 Python/3.9.12'} 
+ body=[
+  {
+    "address": "California", 
+    "city": "US", 
+    "contact_email": "shriya.patil@indexnine.com", 
+    "contact_first_name": "shriya", 
+    "contact_landline": "", 
+    "contact_last_name": "Patil", 
+    "contact_phone": "8596321478", 
+    "country": "United States", 
+    "invited_user_created_on": "1653808572.0716093", 
+    "invited_user_email": "shriya.patil@indexnine.com", 
+    "invited_user_first_name": "shriya", 
+    "invited_user_id": 17, 
+    "invited_user_last_name": "Patil", 
+    "invited_user_status": "ACTIVATED", 
+    "org_id": 11, 
+    "org_name": "MTL Resort", 
+    "roleId": 4, 
+    "state": "US", 
+    "status": "ACTIVATED", 
+    "total_devices": 8, 
+    "website": "", 
+    "zipcode": "4526378"
+  }
+]
+ 
+ </msg>
+<msg timestamp="20220531 16:07:52.419" level="INFO">${response1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220531 16:07:51.819" endtime="20220531 16:07:52.419"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:52.419" endtime="20220531 16:07:52.422"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response1.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220531 16:07:52.423" endtime="20220531 16:07:52.424"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response1.status_code}</arg>
+<arg>${get_status_code}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220531 16:07:52.425" endtime="20220531 16:07:52.425"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${Result}</var>
+<arg>${response1.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220531 16:07:52.426" level="INFO">${Result} = [
+  {
+    "address": "California", 
+    "city": "US", 
+    "contact_email": "shriya.patil@indexnine.com", 
+    "contact_first_name": "shriya", 
+    "contact_landline": "", 
+    "contact_last_name": "P...</msg>
+<status status="PASS" starttime="20220531 16:07:52.426" endtime="20220531 16:07:52.426"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${Result}</arg>
+<arg>address</arg>
+<arg>city</arg>
+<arg>contact_email</arg>
+<arg>status</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20220531 16:07:52.427" endtime="20220531 16:07:52.427"/>
+</kw>
+<status status="PASS" starttime="20220531 16:07:51.817" endtime="20220531 16:07:52.427"/>
+</test>
+<status status="PASS" starttime="20220531 16:07:48.395" endtime="20220531 16:07:52.428"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="6" fail="0" skip="0" id="s1" name="TC1 POST Login">TC1 POST Login</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220531 16:07:48.694" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20220531 16:07:49.404" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg timestamp="20220531 16:07:50.051" level="WARN">Keyword 'RequestsLibrary.Options Request' is deprecated. Please use `OPTIONS On Session` instead.</msg>
+<msg timestamp="20220531 16:07:50.590" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg timestamp="20220531 16:07:51.269" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20220531 16:07:51.819" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+</errors>
+</robot>
